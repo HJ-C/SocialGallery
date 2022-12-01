@@ -1,0 +1,40 @@
+Index: galleryBackend/src/main/java/com/socialgallery/gallerybackend/controller/v1/UserController.java
+===================================================================
+diff --git a/galleryBackend/src/main/java/com/socialgallery/gallerybackend/controller/v1/UserController.java b/galleryBackend/src/main/java/com/socialgallery/gallerybackend/controller/v1/UserController.java
+--- a/galleryBackend/src/main/java/com/socialgallery/gallerybackend/controller/v1/UserController.java	
++++ b/galleryBackend/src/main/java/com/socialgallery/gallerybackend/controller/v1/UserController.java	
+@@ -24,6 +24,7 @@
+ @Api(tags = {"2. Users"})   // 제목 역할
+ @Controller
+ @RequiredArgsConstructor
++@RequestMapping("/api")
+ @RestController
+ @Slf4j
+ public class UserController {
+@@ -46,7 +47,7 @@
+                     required = true, dataType = "String", paramType = "header")
+     })
+     @ApiOperation(value = "모든 회원 조회", notes = "모든 회원 목록을 조회합니다.")
+-    @GetMapping("api/users/findAll")
++    @GetMapping("/users/findAll")
+     public ListResult<UserResponseDTO> findAllUser() {
+         return responseService.getListResult(usersService.findAllUser());
+     }
+@@ -58,7 +59,7 @@
+                     required = true, dataType = "String", paramType = "header")
+     })
+     @ApiOperation(value = "회원 수정", notes = "회원 정보를 수정합니다.")
+-    @PutMapping("/api/users/userUpdate")
++    @PutMapping("/users/userUpdate")
+     public SingleResult<Long> update(@ApiParam(value = "회원 ID", readOnly = true) @RequestParam Long id,
+                                       @ApiParam(value = "회원 이메일", required = true) @RequestParam String email,
+                                       @ApiParam(value = "회원 이름", required = true) @RequestParam String username,
+@@ -81,7 +82,7 @@
+                     required = true, dataType = "String", paramType = "header")
+     })
+     @ApiOperation(value = "회원 삭제", notes = "회원 정보를 삭제합니다.")
+-    @DeleteMapping("/api/users/userDelete/{id}")
++    @DeleteMapping("/users/userDelete/{id}")
+     public CommonResult delete(@ApiParam(value = "회원 아이디", required = true)@PathVariable Long id) {
+         usersService.delete(id);
+         return responseService.getSuccessResult();
